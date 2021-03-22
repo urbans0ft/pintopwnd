@@ -1,0 +1,8 @@
+# ignore hidden files
+.*
+
+# but this one
+!.gitignore
+
+# user dependet files
+*.vcxproj.user

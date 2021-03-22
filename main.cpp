@@ -9,6 +9,12 @@
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
 
+#ifdef _MSC_VER 
+#define HOOK_DLL L"mousehook.dll"
+#else
+#define HOOK_DLL L"Mouse.dll"
+#endif
+
 using std::cout;
 using std::endl;
 
@@ -24,11 +30,11 @@ int modWndStyles();
 int main()
 {
     HMODULE dll = LoadLibrary(
-        L"Mouse.dll"
+        HOOK_DLL
     );
     if (dll == NULL)
     {
-        MessageBox(NULL, L"Could not load library Mouse.dll", L"Dll Loading Failed", MB_ICONERROR);
+        MessageBox(NULL, L"Could not load library " HOOK_DLL, L"Dll Loading Failed", MB_ICONERROR);
         return 1;
     }
 
@@ -42,7 +48,7 @@ int main()
     );
     if (proc == NULL)
     {
-        MessageBox(NULL, L"Could not find function _LowLevelMouseProc@12 from Mouse.dll", L"Function Loading Failed", MB_ICONERROR);
+        MessageBox(NULL, L"Could not find function _LowLevelMouseProc@12 from " HOOK_DLL, L"Function Loading Failed", MB_ICONERROR);
         return 1;
     }
 
