@@ -27,7 +27,7 @@ void printWndStyles(LONG wndStyles, LONG extWndStyles);
 int modWndStyles();
 
 
-int main()
+int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow)
 {
     HMODULE dll = LoadLibrary(
         HOOK_DLL
@@ -52,12 +52,13 @@ int main()
         return 1;
     }
 
-    HHOOK hook = SetWindowsHookEx(
-        WH_MOUSE_LL,
-        (HOOKPROC)proc,
-        (HINSTANCE)dll,
-        0
-    );
+    MessageBox(NULL,
+        L"1.  Close this popup. \n"
+         "2.  Use <alt>+<tab> to select a window.\n"
+         "3a. Left-click on the selected window.\n"
+         "3b. Right-click to abort!", L"Global Mouse Hook Failed", MB_ICONINFORMATION);
+
+    HHOOK hook = SetWindowsHookEx(WH_MOUSE_LL, (HOOKPROC)proc, dll, 0);
     if (hook == NULL)
     {
         MessageBox(NULL, L"Could not set a global mouse hook.", L"Global Mouse Hook Failed", MB_ICONERROR);

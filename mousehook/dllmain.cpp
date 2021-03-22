@@ -29,7 +29,7 @@ LRESULT CALLBACK LowLevelMouseProc(int nCode, WPARAM wParam, LPARAM lParam)
     case WM_RBUTTONUP:
         // quit message loop
         PostThreadMessage(GetCurrentThreadId(), WM_QUIT, wParam, NULL);
-        break;
+        return TRUE;
     }
     return CallNextHookEx(NULL, nCode, wParam, lParam);
 }
